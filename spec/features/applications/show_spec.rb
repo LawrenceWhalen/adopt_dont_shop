@@ -6,6 +6,7 @@ RSpec.describe 'the application show page' do
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @pet_4 = @shelter_1.pets.create(name: 'Sam', breed: 'Persian', age: 2, adoptable: true)
     @application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', description: 'loves animals', status: 'Pending')
     ApplicationPet.create(application: @application, pet: @pet_1)
     ApplicationPet.create(application: @application, pet: @pet_2)
@@ -26,6 +27,21 @@ RSpec.describe 'the application show page' do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_3.name)
+    end
+  end
+  describe 'add a pet to an application' do
+    it 'when given a part of an existing dog name it returns full name' do
+      visit "/applications/#{@application.id}"
+
+      expect(page).to have_button('Submit')
+      expect(page).to_not have_content(@pet_4.name)
+
+      fill_in 'Pet Name', with: 'Sa'
+
+      click_button('Submit')
+
+      expect(page).to have_current_path("/applications/#{@application.id}", ignore_query: true)
+      expect(page).to have_content(@pet_4.name)
     end
   end
 end
