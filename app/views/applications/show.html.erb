@@ -8,6 +8,6 @@
 Pets:
 <ol>
   <% @pets.each do |pet| %>
-    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}", {method: :get} %></a></li>
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}", {method: :get} %></li>
   <% end %>
 </ol>

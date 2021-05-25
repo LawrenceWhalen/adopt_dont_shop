@@ -1,4 +1,4 @@
-class VeterinaryOfficesController < ActionController::Base
+class VeterinaryOfficesController < ApplicationController
   def index
     if params[:sort].present? && params[:sort]== "veterinarian_count"
       @veterinary_offices = VeterinaryOffice.order_by_number_of_vets
@@ -63,5 +63,9 @@ class VeterinaryOfficesController < ActionController::Base
 
   def vet_office_params
     params.permit(:name, :max_patient_capacity, :boarding_services)
+  end
+
+  def error_message(errors)
+    errors.full_messages.join(', ')
   end
 end

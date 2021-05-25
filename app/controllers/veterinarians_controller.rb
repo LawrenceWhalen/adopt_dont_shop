@@ -1,4 +1,4 @@
-class VeterinariansController < ActionController::Base
+class VeterinariansController < ApplicationController
   def index
     @veterinarians = Veterinarian.on_call
   end
@@ -52,5 +52,9 @@ class VeterinariansController < ActionController::Base
       :review_rating,
       :veterinary_office_id
     )
+  end
+
+  def error_message(errors)
+    errors.full_messages.join(', ')
   end
 end

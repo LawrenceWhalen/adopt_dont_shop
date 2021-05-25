@@ -14,4 +14,5 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:description) }
     it { should validate_length_of(:address_state).is_equal_to(2) }
     it { should validate_length_of(:address_zip).is_equal_to(5) }
+  end
 end

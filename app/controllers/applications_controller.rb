@@ -1,4 +1,4 @@
-class ApplicationsController < ActionController::Base
+class ApplicationsController < ApplicationController
 
   def welcome
   end
@@ -9,7 +9,7 @@ class ApplicationsController < ActionController::Base
   end
 
   def new
-    @application = Application.new
+
   end
 
   def create

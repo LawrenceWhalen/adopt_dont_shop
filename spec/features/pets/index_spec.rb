@@ -86,7 +86,7 @@ RSpec.describe 'the pets index' do
 
     visit "/pets"
 
-    expect(page).to have_selector(css: 'Start an Application')
+    expect(page).to have_link('Start an Application')
 
     click_link('Start an Application')
 

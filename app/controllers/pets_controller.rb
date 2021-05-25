@@ -1,4 +1,4 @@
-class PetsController < ActionController::Base
+class PetsController < ApplicationController
   def index
     if params[:search].present?
       @pets = Pet.search(params[:search])
@@ -22,7 +22,8 @@ class PetsController < ActionController::Base
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
-      flash[:alert] = "Error: #{error_message(pet.errors.full_messages.to_sentence)}"
+
+      flash[:alert] = "Error: #{error_message(pet.errors)}"
     end
   end
 
@@ -49,5 +50,9 @@ class PetsController < ActionController::Base
 
   def pet_params
     params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
+  end
+
+  def error_message(errors)
+    errors.full_messages.join(', ')
   end
 end

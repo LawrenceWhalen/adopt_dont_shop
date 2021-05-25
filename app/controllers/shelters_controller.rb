@@ -1,4 +1,4 @@
-class SheltersController < ActionController::Base
+class SheltersController < ApplicationController
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
       @shelters = Shelter.order_by_number_of_pets
@@ -63,5 +63,9 @@ class SheltersController < ActionController::Base
 
   def shelter_params
     params.permit(:id, :name, :city, :foster_program, :rank)
+  end
+
+  def error_message(errors)
+    errors.full_messages.join(', ')
   end
 end
