@@ -27,7 +27,5 @@ RSpec.describe 'the application show page' do
       expect(page).to have_content(@pet_2.name)
       expect(page).to have_content(@pet_3.name)
     end
-
-    it 'should contain links to the pets pages' end
   end
 end
