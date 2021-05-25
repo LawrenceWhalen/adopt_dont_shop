@@ -1,11 +1,18 @@
 class ApplicationsController < ApplicationController
 
   def welcome
+
   end
 
   def show
-    @application = Application.find(params[:id])
-    @pets = @application.pets
+    if params[:search].present?
+      @application = Application.find(params[:id])
+      @pets = @application.pets
+      @pets_2 = Pet.where("name LIKE ?", "%#{params[:search]}%")
+    else
+      @application = Application.find(params[:id])
+      @pets = @application.pets
+    end
   end
 
   def new
@@ -27,6 +34,7 @@ class ApplicationsController < ApplicationController
 
   def application_params
     params.permit(:name, :address_street, :address_city, :address_state, :address_zip, :description, :status)
+    .merge(status: 'Pending')
   end
 
   def error_message(errors)
