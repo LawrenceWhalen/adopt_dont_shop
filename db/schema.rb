@@ -23,10 +23,15 @@ ActiveRecord::Schema.define(version: 2021_05_21_165019) do
   end
 
   create_table "applications", force: :cascade do |t|
-    t.string "applicant_name"
-    t.string "address"
-    t.string "descrition"
+    t.string "name"
+    t.string "address_street"
+    t.string "address_city"
+    t.string "address_state"
+    t.string "address_zip"
+    t.string "description"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pets", force: :cascade do |t|

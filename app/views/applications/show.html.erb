@@ -1,0 +1,13 @@
+<h1>Application</h1>
+
+<h2>Name: <%= @application.name %></h2>
+<h3>Address: <%= @application.address_street %>, <%= @application.address_city %>, <%= @application.address_state %> <%= @application.address_zip %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Status: <%= @application.status %></h3>
+
+Pets:
+<ol>
+  <% @pets.each do |pet| %>
+    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}", {method: :get} %></a></li>
+  <% end %>
+</ol>

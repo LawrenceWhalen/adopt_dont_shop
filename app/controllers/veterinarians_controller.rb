@@ -1,4 +1,4 @@
-class VeterinariansController < ApplicationController
+class VeterinariansController < ActionController::Base
   def index
     @veterinarians = Veterinarian.on_call
   end
