@@ -1,4 +1,4 @@
-class SheltersController < ApplicationController
+class SheltersController < ActionController::Base
   def index
     if params[:sort].present? && params[:sort] == "pet_count"
       @shelters = Shelter.order_by_number_of_pets

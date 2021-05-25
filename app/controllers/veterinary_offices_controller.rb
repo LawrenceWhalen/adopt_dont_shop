@@ -1,4 +1,4 @@
-class VeterinaryOfficesController < ApplicationController
+class VeterinaryOfficesController < ActionController::Base
   def index
     if params[:sort].present? && params[:sort]== "veterinarian_count"
       @veterinary_offices = VeterinaryOffice.order_by_number_of_vets
