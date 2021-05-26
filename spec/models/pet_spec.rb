@@ -31,6 +31,12 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '#pet_search' do
+      it 'returns pets whose names contain part of the argument' do
+        expect(Pet.pet_search('Mr')). to eq([@pet_1])
+      end
+    end
   end
 
   describe 'instance methods' do

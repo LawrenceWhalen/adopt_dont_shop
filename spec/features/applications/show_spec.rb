@@ -41,7 +41,27 @@ RSpec.describe 'the application show page' do
       click_button('Submit')
 
       expect(page).to have_current_path("/applications/#{@application.id}", ignore_query: true)
-      expect(page).to have_content(@pet_4.name)
+      within('div#search') do
+        expect(page).to have_content(@pet_4.name)
+      end
+    end
+    it 'when a dog is searched it can be added to the application' do
+      visit "/applications/#{@application.id}"
+
+      fill_in 'Pet Name', with: 'Sa'
+
+      click_button('Submit')
+
+      within('div#search') do
+        expect(page).to have_button('Adopt this Pet')
+      end
+
+      click_button('Adopt this Pet')
+
+      expect(page).to have_current_path("/applications/#{@application.id}", ignore_query: true)
+      within('div#pet_list') do
+        expect(page).to have_content(@pet_4.name)
+      end
     end
   end
 end

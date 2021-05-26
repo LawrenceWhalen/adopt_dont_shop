@@ -6,11 +6,12 @@
 <h3>Status: <%= @application.status %></h3>
 
 Pets:
+<div id="pet_list">
 <ol>
   <% @pets.each do |pet| %>
     <li><%= link_to "#{pet.name}", "/pets/#{pet.id}", {method: :get} %></li>
   <% end %>
-</ol><br><br>
+</ol></div><br><br>
 
 <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
   <%= f.label :search, 'Pet Name:' %>
@@ -20,9 +21,10 @@ Pets:
 
 <% if !@pets_2.nil? then %>
 Matches:
+<div id="search">
 <ol>
   <% @pets_2 .each do |pet| %>
-    <li><%= link_to "#{pet.name}", "/pets/#{pet.id}", {method: :get} %></li>
+    <li><%= "#{pet.name}" %><%= button_to 'Adopt this Pet', "/application_pets", method: :post, local: true, params: {application: "#{@application.id}", pet: "#{pet.id}"} %></li>
   <% end %>
-</ol><br><br>
+</ol></div><br><br>
 <% end %>
