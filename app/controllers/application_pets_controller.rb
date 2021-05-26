@@ -1,23 +1,28 @@
 class ApplicationPetsController < ApplicationController
 
   def create
-    @application = Application.find(params[:application])
-    @pet = Pet.find(params[:pet])
-    ApplicationPet.create(pet: @pet, application: @application)
-    redirect_to "/applications/#{@application.id}"
-    # if @join.save
+    application = Application.find(params[:application])
+    pet = Pet.find(params[:pet])
+
+    join = ApplicationPet.new(pet: pet, application: application)
+
+    if join.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Error: #{error_message(join.errors)}"
+    end
+
+    # if ApplicationPet.where(pet_id: "#{@pet.id}", application_id: "#{@application.id}") == []
+    #   @join.save
     #   redirect_to "/applications/#{@application.id}"
     # else
     #   redirect_to "/applications/#{@application.id}"
-    #   flash[:alert] = "Error: #{error_message(@join.errors)}"
+    #   flash[:alert] = "Error: Pet already on application"
     # end
   end
 
   private
-
-  def application_params
-    params.permit(:pet, :application)
-  end
 
   def error_message(errors)
     errors.full_messages.join(', ')

@@ -25,12 +25,16 @@ RSpec.describe 'application creation' do
         fill_in 'City', with: 'Fort Collins'
         fill_in 'State', with: 'CO'
         fill_in 'Zip Code', with: '80526'
-        fill_in 'Description', with: 'loves animals'
         click_button 'Submit'
         application = Application.last
 
         expect(page).to have_current_path("/applications/#{application.id}")
         expect(page).to have_content('Tom Hardly')
+        expect(page).to have_content('Bumblebee Dr.')
+        expect(page).to have_content('Fort Collins')
+        expect(page).to have_content('CO')
+        expect(page).to have_content('80526')
+        expect(page).to have_content('In Progress')
       end
     end
 
@@ -40,7 +44,7 @@ RSpec.describe 'application creation' do
 
         click_button 'Submit'
         expect(page).to have_current_path("/applications/new")
-        expect(page).to have_content("Error: Name can't be blank, Address street can't be blank, Address city can't be blank, Address state can't be blank, Address state is the wrong length (should be 2 characters), Address zip can't be blank, Address zip is not a number, Address zip is the wrong length (should be 5 characters), Description can't be blank")
+        expect(page).to have_content("Error: Name can't be blank, Address street can't be blank, Address city can't be blank, Address state can't be blank, Address state is the wrong length (should be 2 characters), Address zip can't be blank, Address zip is not a number, Address zip is the wrong length (should be 5 characters")
       end
     end
   end
