@@ -66,7 +66,7 @@ RSpec.describe 'the pets index' do
     expect(page).to have_button("Search")
   end
 
-  it 'lists partial matches as search results' do
+  it 'lists partial matches as search results ' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
@@ -74,7 +74,7 @@ RSpec.describe 'the pets index' do
 
     visit "/pets"
 
-    fill_in 'Search', with: "Ba"
+    fill_in 'Search', with: "ba"
     click_on("Search")
 
     expect(page).to have_content(pet_1.name)
