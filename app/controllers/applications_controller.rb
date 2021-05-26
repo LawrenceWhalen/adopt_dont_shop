@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @application = Application.find(params[:id])
       @pets = @application.pets
-      @pets_2 = Pet.search(params[:search])
+      @pets_2 = Pet.pet_search(params[:search])
     else
       @application = Application.find(params[:id])
       @pets = @application.pets

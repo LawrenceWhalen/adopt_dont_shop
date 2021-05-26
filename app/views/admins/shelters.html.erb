@@ -1,0 +1,8 @@
+<h1>Shelters</h1>
+
+Shelters:
+<ol>
+  <% @shelters.each do |shelter| %>
+    <li><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}", {method: :get} %></li>
+  <% end %>
+</ol>
