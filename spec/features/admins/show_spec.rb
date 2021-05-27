@@ -35,4 +35,26 @@ RSpec.describe 'the admin application show page' do
       expect(page).to have_content('Approved')
     end
   end
+  describe 'rejecting a et' do
+    it 'should have reject buttons next to each pet' do
+
+      visit "/admin/applications/#{@application.id}"
+
+
+      expect(page).to have_button('Reject', count: 2)
+    end
+
+    it 'should remove the reject button and show Approved when clicked' do
+      visit "/admin/applications/#{@application.id}"
+
+      expect(page).to_not have_content('Approved')
+
+      within('li#0') do
+        click_button('Reject')
+      end
+
+      expect(page).to have_button('Reject')
+      expect(page).to have_content('Rejected')
+    end
+  end
 end
