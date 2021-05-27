@@ -14,12 +14,25 @@ RSpec.describe 'the admin application show page' do
     ApplicationPet.create(application: @application_2, pet: @pet_3)
   end
   describe 'visit a show page' do
-    it 'should dispay the full application row' do
+    it 'should have approve buttons next to each pet' do
 
       visit "/admin/applications/#{@application.id}"
 
 
       expect(page).to have_button('Approve', count: 2)
+    end
+
+    it 'should remove the approve button and show Approved when clicked' do
+      visit "/admin/applications/#{@application.id}"
+
+      expect(page).to_not have_content('Approved')
+
+      within('li#0') do
+        click_button('Approve')
+      end
+
+      expect(page).to have_button('Approve')
+      expect(page).to have_content('Approved')
     end
   end
 end

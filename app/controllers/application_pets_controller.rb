@@ -14,6 +14,12 @@ class ApplicationPetsController < ApplicationController
     end
   end
 
+  def update
+    status_update = ApplicationPet.find(params[:id])
+    status_update.update(pet_status: params[:status])
+    redirect_to "/admin/applications/#{status_update.application_id}"
+  end
+
   private
 
   def error_message(errors)

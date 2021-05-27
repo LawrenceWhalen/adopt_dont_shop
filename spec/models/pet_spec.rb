@@ -51,7 +51,16 @@ RSpec.describe Pet, type: :model do
         application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending')
         ApplicationPet.create(application: application, pet: @pet_1, pet_status: 'Blue')
 
-        expect(@pet_1.app_status(application.id)[0]).to eq('Blue')
+        expect(@pet_1.app_status(application.id)).to eq('Blue')
+      end
+    end
+
+    describe '.app_join_id' do
+      it 'returns the id for the join table row between app and pet' do
+        application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending')
+        ap = ApplicationPet.create(application: application, pet: @pet_1, pet_status: 'Blue')
+
+        expect(@pet_1.app_join_id(application.id)).to eq(ap.id)
       end
     end
   end

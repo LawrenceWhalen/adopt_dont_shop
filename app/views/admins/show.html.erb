@@ -8,12 +8,12 @@
 Pets:
 <div id="pet_list">
 <ol>
-  <% @pets.each do |pet| %>
-    <li><%= "#{pet.name}" %>
-    <% if pet.app_status(@application.id)[0].nil? %>
-      <%= button_to "Approve", "/application_pets", method: :patch, local: :true, params: {pet_id: pet.id, application_id: @application.id} %></li>
+  <% @pets.each_with_index do |pet, index| %>
+    <li id="<%= index %>"><%= "#{pet.name}" %>
+    <% if pet.app_status(@application.id).nil? %>
+      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %></li>
     <% else %>
-      <%= pet.app_status(@application.id)[0] %>
+      <%= pet.app_status(@application.id) %>
     <% end %>
   <% end %>
 </ol>
