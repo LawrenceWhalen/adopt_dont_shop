@@ -12,6 +12,7 @@ RSpec.describe 'the admin application show page' do
     ApplicationPet.create(application: @application, pet: @pet_1)
     ApplicationPet.create(application: @application, pet: @pet_2)
     ApplicationPet.create(application: @application_2, pet: @pet_3)
+    ApplicationPet.create(application: @application_2, pet: @pet_2)
   end
   describe 'visit a show page' do
     it 'should have approve buttons next to each pet' do
@@ -35,7 +36,7 @@ RSpec.describe 'the admin application show page' do
       expect(page).to have_content('Approved')
     end
   end
-  describe 'rejecting a et' do
+  describe 'rejecting a pet' do
     it 'should have reject buttons next to each pet' do
 
       visit "/admin/applications/#{@application.id}"
@@ -55,6 +56,24 @@ RSpec.describe 'the admin application show page' do
 
       expect(page).to have_button('Reject')
       expect(page).to have_content('Rejected')
+    end
+  end
+
+  describe 'application seperation' do
+    it 'application acception and rejection does not effect other applications' do
+      visit "/admin/applications/#{@application.id}"
+
+      within('li#0') do
+        click_button('Reject')
+      end
+
+      within('li#1') do
+        click_button('Approve')
+      end
+
+      visit "/admin/applications/#{@application_2.id}"
+
+      expect(page).to have_button('Approve', count: 2)
     end
   end
 end
