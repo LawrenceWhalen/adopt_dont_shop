@@ -16,4 +16,5 @@ class Pet < ApplicationRecord
   def self.pet_search(name_part)
     where("lower(name) LIKE ?", "%#{name_part.downcase}%")
   end
+
 end

@@ -1,8 +1,19 @@
 <h1>Shelters</h1>
 
 Shelters:
+<div id="list">
 <ol>
   <% @shelters.each do |shelter| %>
     <li><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}", {method: :get} %></li>
   <% end %>
 </ol>
+</div>
+
+<div id='apps'>
+Shelters with applications:
+<ol>
+  <% @shelters_app.each do |shelter| %>
+    <li><%= link_to "#{shelter.name}", "/shelters/#{shelter.id}", {method: :get} %></li>
+  <% end %>
+</ol>
+</div>

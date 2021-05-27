@@ -20,6 +20,10 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY LOWER(shelters.name) DESC")
   end
 
+  def self.has_pets_with_apps
+    joins(pets: :applications).uniq
+  end
+
   def pet_count
     pets.count
   end
