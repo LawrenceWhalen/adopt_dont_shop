@@ -12,6 +12,7 @@ Pets:
     <li id="<%= index %>"><%= "#{pet.name}" %>
     <% if pet.app_status(@application.id).nil? %>
       <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %>
+      <%= button_to "Reject", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Rejected'} %>
     <% else %>
       <%= pet.app_status(@application.id) %>
     <% end %>
