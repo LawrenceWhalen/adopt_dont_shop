@@ -11,10 +11,11 @@ Pets:
   <% @pets.each_with_index do |pet, index| %>
     <li id="<%= index %>"><%= "#{pet.name}" %>
     <% if pet.app_status(@application.id).nil? %>
-      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %></li>
+      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %>
     <% else %>
       <%= pet.app_status(@application.id) %>
     <% end %>
   <% end %>
+  </li>
 </ol>
 </div>

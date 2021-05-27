@@ -7,7 +7,7 @@ class AdminsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets.joins(:application_pets)
+    @pets = @application.pets
   end
 
 end
