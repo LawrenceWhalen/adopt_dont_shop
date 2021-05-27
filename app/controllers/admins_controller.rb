@@ -5,4 +5,9 @@ class AdminsController < ApplicationController
     @shelters_app = Shelter.has_pets_with_apps
   end
 
+  def show
+    @application = Application.find(params[:id])
+    @pets = @application.pets.joins(:application_pets)
+  end
+
 end

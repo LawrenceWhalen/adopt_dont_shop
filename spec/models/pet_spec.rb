@@ -45,5 +45,14 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.app_status' do
+      it 'returns the status of the pet in realtion to a specific applicaiton' do
+        application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending')
+        ApplicationPet.create(application: application, pet: @pet_1, pet_status: 'Blue')
+
+        expect(@pet_1.app_status(application.id)[0]).to eq('Blue')
+      end
+    end
   end
 end

@@ -44,7 +44,7 @@ RSpec.describe 'application creation' do
 
         click_button 'Submit'
         expect(page).to have_current_path("/applications/new")
-        expect(page).to have_content("Error: Name can't be blank, Address street can't be blank, Address city can't be blank, Address state can't be blank, Address state is the wrong length (should be 2 characters), Address zip can't be blank, Address zip is not a number, Address zip is the wrong length (should be 5 characters")
+        expect(page).to have_content("Error: Name can't be blank, Address street can't be blank, Address city can't be blank, Address state can't be blank, Address state is the wrong length (should be 2 characters), Address zip can't be blank, Address zip is not a number, Address zip is the wrong length (should be 5 characters)")
       end
     end
   end
