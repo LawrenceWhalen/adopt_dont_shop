@@ -21,7 +21,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.has_pets_with_apps
-    joins(pets: :applications).uniq
+    joins(pets: :applications).where('status = ?', 'Pending').distinct
   end
 
   def pet_count

@@ -1,0 +1,20 @@
+<h1>Application</h1>
+
+<h2>Name: <%= @application.name %></h2>
+<h3>Address: <%= @application.address_street %>, <%= @application.address_city %>, <%= @application.address_state %> <%= @application.address_zip %></h3>
+<h3>Description: <%= @application.description %></h3>
+<h3>Status: <%= @application.status %></h3>
+
+Pets:
+<div id="pet_list">
+<ol>
+  <% @pets.each_with_index do |pet, index| %>
+    <li id="<%= index %>"><%= "#{pet.name}" %>
+    <% if pet.app_status(@application.id).nil? %>
+      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %></li>
+    <% else %>
+      <%= pet.app_status(@application.id) %>
+    <% end %>
+  <% end %>
+</ol>
+</div>

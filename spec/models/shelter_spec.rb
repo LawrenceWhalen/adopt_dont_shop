@@ -51,11 +51,13 @@ RSpec.describe Shelter, type: :model do
     describe '#has_pets_with_apps' do
       it  'returns any shelters holding pets that have applications' do
         @application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending')
+        @application_2 = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'In Progress')
         ApplicationPet.create(application: @application, pet: @pet_1)
+        ApplicationPet.create(application: @application_2, pet: @pet_3)
 
         expect(Shelter.has_pets_with_apps).to eq([@shelter_1])
 
-        @application_2 = Application.create(name: 'Master Dan', address_street: '555 Tamis crt.', address_city: 'Fryer', address_state: 'CO', address_zip: '80525', status: 'In Progress')
+        @application_2 = Application.create(name: 'Master Dan', address_street: '555 Tamis crt.', address_city: 'Fryer', address_state: 'CO', address_zip: '80525', status: 'Pending')
         ApplicationPet.create(application: @application_2, pet: @pet_3)
 
         expect(Shelter.has_pets_with_apps).to eq([@shelter_1, @shelter_3])
