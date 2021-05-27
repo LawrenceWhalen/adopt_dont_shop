@@ -12,14 +12,6 @@ class ApplicationPetsController < ApplicationController
       redirect_to "/applications/#{application.id}"
       flash[:alert] = "Error: #{error_message(join.errors)}"
     end
-
-    # if ApplicationPet.where(pet_id: "#{@pet.id}", application_id: "#{@application.id}") == []
-    #   @join.save
-    #   redirect_to "/applications/#{@application.id}"
-    # else
-    #   redirect_to "/applications/#{@application.id}"
-    #   flash[:alert] = "Error: Pet already on application"
-    # end
   end
 
   private
