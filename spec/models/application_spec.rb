@@ -43,5 +43,13 @@ RSpec.describe Application, type: :model do
         expect(@application.approval_check).to eq(nil)
       end
     end
+    describe '.adopt_pets' do
+      it 'returns approved if all pets have been approved' do
+        ApplicationPet.create(application: @application, pet: @pet_1, pet_status: 'Approved')
+        ApplicationPet.create(application: @application, pet: @pet_2, pet_status: 'Approved')
+
+        expect(@application.adopt_pets).to eq(2)
+      end
+    end
   end
 end
