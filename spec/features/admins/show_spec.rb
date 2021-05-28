@@ -67,9 +67,7 @@ RSpec.describe 'the admin application show page' do
         click_button('Reject')
       end
 
-      within('li#1') do
         click_button('Approve')
-      end
 
       visit "/admin/applications/#{@application_2.id}"
 
@@ -104,6 +102,18 @@ RSpec.describe 'the admin application show page' do
       visit "/admin/applications/#{application_1.id}"
 
       expect(page).to have_content('Status: Rejected')
+    end
+
+    it 'all pets are approved it sets their adoption flag to false' do
+      application_1 = Application.create(name: 'Phran', address_street: '453 Trim dr.', address_city: 'Cram', address_state: 'CO', address_zip: '80555', status: 'Pending', description: 'Love')
+      ApplicationPet.update(application: application_1, pet: @pet_1, pet_status: 'Approved')
+      ApplicationPet.update(application: application_1, pet: @pet_2, pet_status: 'Approved')
+
+      visit "/admin/applications/#{application_1.id}"
+
+      visit "/pets/#{@pet_1.id}"
+
+      expect(page).to have_content(false)
     end
   end
 end
