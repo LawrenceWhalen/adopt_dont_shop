@@ -67,9 +67,7 @@ RSpec.describe 'the admin application show page' do
         click_button('Reject')
       end
 
-      within('li#1') do
         click_button('Approve')
-      end
 
       visit "/admin/applications/#{@application_2.id}"
 

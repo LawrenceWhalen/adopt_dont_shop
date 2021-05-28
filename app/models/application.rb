@@ -22,4 +22,8 @@ class Application < ApplicationRecord
       nil
     end
   end
+
+  def adopt_pets
+    pets.update_all(adoptable: false)
+  end
 end
