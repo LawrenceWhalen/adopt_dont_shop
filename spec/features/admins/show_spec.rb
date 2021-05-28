@@ -7,8 +7,8 @@ RSpec.describe 'the admin application show page' do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
     @pet_4 = @shelter_1.pets.create(name: 'Sam', breed: 'Persian', age: 2, adoptable: true)
-    @application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending')
-    @application_2 = Application.create(name: 'Master Danpe', address_street: '555 Tamis crt.', address_city: 'Fryer', address_state: 'CO', address_zip: '80525', status: 'In Progress')
+    @application = Application.create(name: 'Andy Dude', address_street: '555 Mag dr.', address_city: 'Lovit', address_state: 'CO', address_zip: '80555', status: 'Pending', description: 'Love')
+    @application_2 = Application.create(name: 'Master Danpe', address_street: '555 Tamis crt.', address_city: 'Fryer', address_state: 'CO', address_zip: '80525', status: 'In Progress', description: 'Love')
     ApplicationPet.create(application: @application, pet: @pet_1)
     ApplicationPet.create(application: @application, pet: @pet_2)
     ApplicationPet.create(application: @application_2, pet: @pet_3)
@@ -74,6 +74,22 @@ RSpec.describe 'the admin application show page' do
       visit "/admin/applications/#{@application_2.id}"
 
       expect(page).to have_button('Approve', count: 2)
+    end
+  end
+
+  describe 'application approval' do
+    it 'sets the status to approved if all of the pets have been approved.' do
+      application_1 = Application.create(name: 'Phran', address_street: '453 Trim dr.', address_city: 'Cram', address_state: 'CO', address_zip: '80555', status: 'Pending', description: 'Love')
+      visit "/admin/applications/#{application_1.id}"
+
+      expect(application_1.status).to eq('Pending')
+
+      ApplicationPet.update(application: application_1, pet: @pet_1, pet_status: 'Approved')
+      ApplicationPet.update(application: application_1, pet: @pet_2, pet_status: 'Approved')
+
+      visit "/admin/applications/#{application_1.id}"
+
+      expect(page).to have_content('Status: Approved')
     end
   end
 end

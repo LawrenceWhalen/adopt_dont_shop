@@ -8,6 +8,10 @@ class AdminsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
+    admin_check = @application.approval_check
+    if !admin_check.nil?
+      @application.update!(status: admin_check, description: @application.description)
+    end
   end
 
 end
