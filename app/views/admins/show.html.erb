@@ -11,8 +11,8 @@ Pets:
   <% @pets.each_with_index do |pet, index| %>
     <li id="<%= index %>"><%= "#{pet.name}" %>
     <% if pet.app_status(@application.id).nil? %>
-      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Approved'} %>
-      <%= button_to "Reject", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {status: 'Rejected'} %>
+      <%= button_to "Approve", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {pet_status: 'Approved'} %>
+      <%= button_to "Reject", "/application_pets/#{pet.app_join_id(@application.id)}", method: :patch, local: :true, params: {pet_status: 'Rejected'} %>
     <% else %>
       <%= pet.app_status(@application.id) %>
     <% end %>

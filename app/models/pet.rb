@@ -10,11 +10,11 @@ class Pet < ApplicationRecord
   end
 
   def app_status(app_id)
-    ApplicationPet.where(pet_id: self.id, application_id: app_id).pluck(:pet_status)[0]
+    ApplicationPet.find_by(pet_id: self.id, application_id: app_id).pet_status
   end
 
   def app_join_id(app_id)
-    ApplicationPet.where(pet_id: self.id, application_id: app_id).pluck(:id)[0]
+    ApplicationPet.find_by(pet_id: self.id, application_id: app_id).id
   end
 
   def self.adoptable
