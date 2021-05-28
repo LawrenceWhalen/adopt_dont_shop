@@ -77,7 +77,7 @@ RSpec.describe 'the admin application show page' do
     end
   end
 
-  describe 'application approval' do
+  describe 'application approval/rejection' do
     it 'sets the status to approved if all of the pets have been approved.' do
       application_1 = Application.create(name: 'Phran', address_street: '453 Trim dr.', address_city: 'Cram', address_state: 'CO', address_zip: '80555', status: 'Pending', description: 'Love')
       visit "/admin/applications/#{application_1.id}"
@@ -90,6 +90,20 @@ RSpec.describe 'the admin application show page' do
       visit "/admin/applications/#{application_1.id}"
 
       expect(page).to have_content('Status: Approved')
+    end
+
+    it 'sets the status to approved if all of the pets have been approved.' do
+      application_1 = Application.create(name: 'Phran', address_street: '453 Trim dr.', address_city: 'Cram', address_state: 'CO', address_zip: '80555', status: 'Pending', description: 'Love')
+      visit "/admin/applications/#{application_1.id}"
+
+      expect(application_1.status).to eq('Pending')
+
+      ApplicationPet.update(application: application_1, pet: @pet_1, pet_status: 'Rejected')
+      ApplicationPet.update(application: application_1, pet: @pet_2, pet_status: 'Approved')
+
+      visit "/admin/applications/#{application_1.id}"
+
+      expect(page).to have_content('Status: Rejected')
     end
   end
 end

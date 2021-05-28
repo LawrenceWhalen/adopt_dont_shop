@@ -57,8 +57,7 @@ RSpec.describe Shelter, type: :model do
 
         expect(Shelter.has_pets_with_apps).to eq([@shelter_1])
 
-        @application_2 = Application.create(name: 'Master Dan', address_street: '555 Tamis crt.', address_city: 'Fryer', address_state: 'CO', address_zip: '80525', status: 'Pending')
-        ApplicationPet.create(application: @application_2, pet: @pet_3)
+        ApplicationPet.create(application: @application, pet: @pet_3)
 
         expect(Shelter.has_pets_with_apps).to eq([@shelter_1, @shelter_3])
       end
